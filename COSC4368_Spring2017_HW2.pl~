@@ -1,0 +1,64 @@
+/*
+ * Chad Hoang
+ * Homework 2
+ * COSC4368 Artificial Intelligence Programming
+ * University of Houston
+ * Department of Computer Science
+*/
+
+/* NOTE TO SELF: [/Users/chadh/Google Drive/_College/COSC 4368 -
+ Artificial Intelligence Programming/HW2/cosc4368_spring2017_hw2.pl'].
+*/
+
+% Predefined Edges of A,B,C,D,E,F,G given graph in HW2
+edge(a, b, 5).
+edge(a, d, 10).
+edge(a, c, 8).
+edge(a, c, 8).
+edge(b, d, 2).
+edge(b, e, 9).
+edge(c, d, 4).
+edge(c, f, 5).
+edge(d, e, 6).
+edge(d, f, 11).
+edge(d, g, 4).
+edge(e, g, 2).
+edge(f, g, 1).
+
+/*
+ * PART I: Find all paths betwen 2 nodes and their total length
+*/
+
+% A Connection exist given a Start, End, and Length
+connected(Start, End, Length) :-
+    edge(Start, End, Length).
+
+% A path given Start, End, Length, and Path
+path(Start, End, Length, Path) :-
+    travel(Start, End, [Start], Queque, Length),             % Recursivly travel
+    reverse(Queque, Path).                                   % For each path in the quque, print the path
+
+% A connection given Start, End, Path, the last path, and Length
+travel(Start, End, Path, [End | Path], Length) :-
+    connected(Start, End, Length).
+
+% Recursivly get the path given Start, End, the last path visited, Path,
+% and Length
+travel(Start, End, Visited, Path, Length) :-
+       connected(Start, End2, Length2),
+       travel(End2, End,[End2 | Visited], Path, Length3),
+       Length is Length2 + Length3.                          % Add base length with previous lengths.
+
+
+/*
+ * PART II: Find the length of any given path
+*/
+
+% Path length of 0 given only 1 node.
+pathlength([_], 0).
+
+% Path length given a set of variables.
+pathlength([Start, End|T], Length) :-
+    edge(Start, End, Length1),            % Start and End are connected with length of Length1.
+    pathlength([End | T], Length2),       % Recursivly get the length between End and Length2.
+    Length is Length1 + Length2.          % Add base length with previous lengths.

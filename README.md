@@ -30,39 +30,7 @@ Department of Computer Science
 Sent on: February 15, 2017
 Due: February 24, 2017
 
-a
-
-b
-
-c
-
-e
-
-d
-
-f
-
-g
-
-5
-
-6
-
-8 10
-
-4
-
-5
-
-1 2
-
-9
-
-2
-
-11
-
-4
+See HW pdf
 
 Write the necessary Prolog code as rules to answer the following questions (add them to the
 knowledge base):
